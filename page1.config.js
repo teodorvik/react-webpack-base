@@ -1,7 +1,7 @@
 const config = {
     entry: './app.js',
     fonts: [],
-    vendors: []
+    vendors: [],
 };
 
 module.exports = config;

@@ -7,9 +7,16 @@ const config = {
   entry: page1Config.entry
   ,
   output: {
-      filename: '[name].bundle.js',
-      path: path.resolve(__dirname, 'build'),
+    filename: '[name].bundle.js',
+    path: path.resolve(__dirname, 'build'),
   },
+  module: {
+    rules: [{
+      test: /\.(scss|css)$/,
+      exclude: path.resolve(__dirname, 'node_modules'),
+      use: ['style-loader', 'css-loader', 'sass-loader']
+    }]
+  }
 }
 // module: {
 //   rules: [{
