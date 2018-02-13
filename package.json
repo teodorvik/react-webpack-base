@@ -18,5 +18,8 @@
   "homepage": "https://github.com/teodorvik/webpack#readme",
   "dependencies": {
     "webpack": "3.11.0"
+  },
+  "devDependencies": {
+    "webpack-sass-loaders": "1.0.0"
   }
 }
