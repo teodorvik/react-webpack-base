@@ -4,14 +4,15 @@
   "description": "Basic setup for a React project",
   "main": "src/index.html",
   "scripts": {
-    "build": "webpack -p",
-    "dev": "webpack-dev-server"
+    "build": "webpack -p --env.prod",
+    "dev": "webpack-dev-server --env.dev",
+    "profile": "webpack --profile --json > stats.json"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/teodorvik/webpack.git"
   },
-  "author": "",
+  "author": "Teodor Vik",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/teodorvik/webpack/issues"
@@ -28,7 +29,8 @@
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "webpack": "~3.11.0",
-    "webpack-sass-loaders": "^1.0.0"
+    "webpack-sass-loaders": "^1.0.0",
+    "yargs": "^11.0.0"
   },
   "devDependencies": {
     "webpack-dev-server": "^2.11.1"

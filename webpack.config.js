@@ -1,23 +1,34 @@
 const webpack = require('webpack');
-const path = require('path');
+const yargs = require('yargs');
+const { resolve } = require('path');
 
 // Plugins
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const config = {
-  context: path.resolve(__dirname, 'src'),
+/**
+ * TODO:
+ * Add CommonsChunkPlugin
+ * Service Workers
+ * DedupePlugin
+ * Codesplitting
+ * TreeShaking
+ */
+
+const config = (env) => ({
+  context: resolve(__dirname, 'src'),
   entry: './app.jsx',
   output: {
+    path: resolve(__dirname, 'build'),
     filename: '[name].bundle.js',
-    path: path.resolve(__dirname, 'build'),
+    publicPath: '/build/',
+    pathinfo: !env.prod
   },
   module: {
     rules: [
       {
         // SCSS and CSS
         test: /\.(scss|css)$/,
-        exclude: path.resolve(__dirname, 'node_modules'),
         use: ['style-loader', 'css-loader', 'sass-loader']
       },
       {
@@ -44,7 +55,7 @@ const config = {
       {
         // JSX and JS
         test: /\.(jsx|js)$/,
-        exclude: path.resolve(__dirname, 'node_modules'),
+        exclude: /node_modules/,
         loader: 'babel-loader'
       },
       {
@@ -55,10 +66,13 @@ const config = {
     ]
   },
   plugins: [
-    new CleanWebpackPlugin(['build']),
     new HtmlWebpackPlugin({ template: 'index.html' })
   ],
-  devtool: 'inline-source-map'
-}
+  devtool: env.prod ? 'source-map' : 'eval',
+  devServer: {
+    contentBase: "./build"
+  }
+});
 
-module.exports = config
+module.exports = config;
+// new CleanWebpackPlugin(['build']),
