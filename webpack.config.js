@@ -5,6 +5,8 @@ const { resolve } = require('path');
 // Plugins
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+// Removes dead code in ES6 modules, minifies, and other nice stuff
+const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
 
 /**
  * TODO:
@@ -66,7 +68,8 @@ const config = (env) => ({
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: 'index.html' })
+    new HtmlWebpackPlugin({ template: 'index.html' }),
+    new UglifyJSPlugin()
   ],
   devtool: env.prod ? 'source-map' : 'eval',
   devServer: {
