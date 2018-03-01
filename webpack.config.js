@@ -5,26 +5,13 @@ const { resolve } = require('path');
 // Plugins
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-// Removes dead code in ES6 modules, minifies, and other nice stuff
-const UglifyJSPlugin = require('uglifyjs-webpack-plugin');
-
-/**
- * TODO:
- * Add CommonsChunkPlugin
- * Service Workers
- * DedupePlugin
- * Codesplitting
- * TreeShaking
- */
 
 const config = (env) => ({
   context: resolve(__dirname, 'src'),
   entry: './app.jsx',
   output: {
     path: resolve(__dirname, 'build'),
-    filename: '[name].bundle.js',
-    publicPath: '/build/',
-    pathinfo: !env.prod
+    filename: '[name].bundle.js'
   },
   module: {
     rules: [
@@ -68,14 +55,12 @@ const config = (env) => ({
     ]
   },
   plugins: [
-    new HtmlWebpackPlugin({ template: 'index.html' }),
-    new UglifyJSPlugin()
+    new CleanWebpackPlugin(['build']),
+    new HtmlWebpackPlugin({ template: 'index.html' })
   ],
-  devtool: env.prod ? 'source-map' : 'eval',
   devServer: {
     contentBase: "./build"
   }
 });
 
 module.exports = config;
-// new CleanWebpackPlugin(['build']),
