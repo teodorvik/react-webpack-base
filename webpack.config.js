@@ -1,12 +1,11 @@
 const webpack = require('webpack');
-const yargs = require('yargs');
 const { resolve } = require('path');
 
 // Plugins
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 
-const config = (env) => ({
+const config = () => ({
   context: resolve(__dirname, 'src'),
   entry: './app.jsx',
   output: {
@@ -53,6 +52,10 @@ const config = (env) => ({
         use: ['html-loader']
       }
     ]
+  },
+  resolve: {
+    // import('Component.jsx') can now be written like import('Component')
+    extensions: ['.js', '.jsx']
   },
   plugins: [
     new CleanWebpackPlugin(['build']),
